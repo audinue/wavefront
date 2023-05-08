@@ -1,0 +1,65 @@
+@startuml
+
+hide empty members
+
+class Obj {
+  + materials: String
+  + positions: List<Vector3>
+  + texCoords: List<Vector2>
+  + normals: List<Vector3>
+  + objects: List<Object>
+  + <<static>> parse(in: InputStream): Obj
+}
+
+class Object {
+  + name: String
+  + material: String
+  + faces: List<Face>
+}
+
+class Face {
+  + vertices: List<Vertex>
+}
+
+class Vertex {
+  + position: int
+  + texCoord: int
+  + normal: int
+}
+
+class Mtl {
+  + materials: List<Material>
+  + <<static>> parse(in: InputStream): Mtl
+}
+
+class Material {
+  + name: String
+  + ambient: Vector3
+  + diffuse: Vector3
+  + specular: Vector3
+  + emission: Vector3
+  + shininess: double
+  + texture: String
+}
+
+class Vector3 {
+  + x: double
+  + y: double
+  + z: double
+}
+
+class Vector2 {
+  + x: double
+  + y: double
+}
+
+Obj --> Object
+Object --> Face
+Face --> Vertex
+
+Mtl --> Material
+Obj --> Vector3
+Obj --> Vector2
+Material --> Vector3
+
+@enduml
